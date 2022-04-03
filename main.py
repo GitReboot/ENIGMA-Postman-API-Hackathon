@@ -575,21 +575,17 @@ import tkinter as tk
 
 class MyWindow:
     def __init__(self, win):
-        self.bg1= ImageTk.PhotoImage(file="Home.png")
-        canvas= Canvas( win,width= 2500, height= 2000)
-        canvas.pack(expand=True, fill= BOTH)
-        canvas.pack(padx=0,pady=170)
-        canvas.create_image(1250,70,image=self.bg1, anchor="ne")
-        self.D_lbl0=Label(win, text='Personality Based Job Recommender Using Twitter Data ',fg='navy', font=("Helvetica", 40))
-        self.D_lbl0.place(x=110,y=30)
-        self.btn1 = Button(win, text='MBTI DATA',bg='navy',fg='white',font=30,command=self.mbti)
-        self.btn1.place(x=550,y=120)
-        self.btn1 = Button(win, text='TWITTER DATA',bg='navy',fg='white',font=30,command=self.posts)
-        self.btn1.place(x=750,y=120)
+        self.D_lbl0 = Label(win, text='Personality Based Job Recommender Using Twitter Data ', fg='navy',
+                            font=("Helvetica", 40))
+        self.D_lbl0.place(x=110, y=30)
+        self.btn1 = Button(win, text='Start Application', bg='navy', fg='white', font=("Helvetica", 30), command=self.home1)
+        self.btn1.place(x=500, y=300)
+        self.btn1 = Button(win, text='Quit', bg='navy', fg='white', font=("Helvetica", 30), command=win.destroy)
+        self.btn1.place(x=1000, y=300)
 
     def mbti(self):
         newwin = Toplevel(window)
-        newwin.geometry("2600x2000+20+20")
+        newwin.geometry("1920x1080")
         self.D_lbl0 = Label(newwin, text='Personality Based Job Recommender Using Twitter Data ', fg='navy',
                             font=("Helvetica", 40))
         self.D_lbl0.place(x=110, y=30)
@@ -612,7 +608,7 @@ class MyWindow:
 
     def mbt(self):
         newwin1 = Toplevel(window)
-        newwin1.geometry("2600x2000+20+20")
+        newwin1.geometry("1920x1080")
         self.D_lbl0 = Label(newwin1, text='Personality Based Job Recommender Using Twitter Data ', fg='navy',
                             font=("Helvetica", 40))
         self.D_lbl0.place(x=110, y=30)
@@ -636,7 +632,7 @@ class MyWindow:
 
     def explore(self):
         newwin2 = Toplevel(window)
-        newwin2.geometry("2600x2000+20+20")
+        newwin2.geometry("1920x1080")
         canvas = Canvas(newwin2, width=2500, height=2000)
         canvas.pack(expand=True, fill=BOTH)
         canvas.pack(padx=0, pady=170)
@@ -679,7 +675,7 @@ class MyWindow:
 
     def explore1(self):
         newwin3 = Toplevel(window)
-        newwin3.geometry("2600x2000+20+20")
+        newwin3.geometry("1920x1080")
         canvas = Canvas(newwin3, width=2500, height=2000)
         canvas.pack(expand=True, fill=BOTH)
         canvas.pack(padx=0, pady=170)
@@ -722,7 +718,7 @@ class MyWindow:
 
     def explore2(self):
         newwin4 = Toplevel(window)
-        newwin4.geometry("2600x2000+20+20")
+        newwin4.geometry("1920x1080")
         canvas = Canvas(newwin4, width=2500, height=2000)
         canvas.pack(expand=True, fill=BOTH)
         canvas.pack(padx=0, pady=170)
@@ -765,7 +761,7 @@ class MyWindow:
 
     def explore3(self):
         newwin5 = Toplevel(window)
-        newwin5.geometry("2600x2000+20+20")
+        newwin5.geometry("1920x1080")
         canvas = Canvas(newwin5, width=2500, height=2000)
         canvas.pack(expand=True, fill=BOTH)
         canvas.pack(padx=0, pady=170)
@@ -808,7 +804,7 @@ class MyWindow:
 
     def explore4(self):
         newwin6 = Toplevel(window)
-        newwin6.geometry("2600x2000+20+20")
+        newwin6.geometry("1920x1080")
         canvas = Canvas(newwin6, width=2500, height=2000)
         canvas.pack(expand=True, fill=BOTH)
         canvas.pack(padx=0, pady=170)
@@ -851,7 +847,7 @@ class MyWindow:
 
     def explore5(self):
         newwin7 = Toplevel(window)
-        newwin7.geometry("2600x2000+20+20")
+        newwin7.geometry("1920x1080")
         canvas = Canvas(newwin7, width=2500, height=2000)
         canvas.pack(expand=True, fill=BOTH)
         canvas.pack(padx=0, pady=170)
@@ -894,7 +890,7 @@ class MyWindow:
 
     def explore6(self):
         newwin8 = Toplevel(window)
-        newwin8.geometry("2600x2000+20+20")
+        newwin8.geometry("1920x1080")
         canvas = Canvas(newwin8, width=2500, height=2000)
         canvas.pack(expand=True, fill=BOTH)
         canvas.pack(padx=0, pady=170)
@@ -937,7 +933,7 @@ class MyWindow:
 
     def twitter(self):
         newwin9 = Toplevel(window)
-        newwin9.geometry("2600x2000+20+20")
+        newwin9.geometry("1920x1080")
         self.D_lbl0 = Label(newwin9, text='Personality Based Job Recommender Using Twitter Data ', fg='navy',
                             font=("Helvetica", 40))
         self.D_lbl0.place(x=110, y=30)
@@ -958,7 +954,7 @@ class MyWindow:
 
     def posts(self):
         newwin10 = Toplevel(window)
-        newwin10.geometry("2600x2000+20+20")
+        newwin10.geometry("1920x1080")
         self.D_btn1 = Button(newwin10, text='TWITTER POSTS', bg='green', fg='white', font=30,
                              command=lambda: [newwin10.destroy(), self.posts()])
         self.D_btn1.place(x=480, y=120)
@@ -1007,7 +1003,7 @@ class MyWindow:
 
     def recomends(self):
         newwin11 = Toplevel(window)
-        newwin11.geometry("2600x2000+20+20")
+        newwin11.geometry("1920x1080")
         self.D_btn1 = Button(newwin11, text='TWITTER POSTS', bg='navy', fg='white', font=30,
                              command=lambda: [self.posts(), newwin11.destroy()])
         self.D_btn1.place(x=480, y=120)
@@ -1053,7 +1049,7 @@ class MyWindow:
 
     def home(self):
         newwin12 = Toplevel(window)
-        newwin12.geometry("2600x2000+20+20")
+        newwin12.geometry("1920x1080")
         self.D_btn1 = Button(newwin12, text='TWITTER POSTS', bg='navy', fg='white', font=30,
                              command=lambda: [self.posts(), newwin12.destroy()])
         self.D_btn1.place(x=480, y=120)
@@ -1100,7 +1096,7 @@ class MyWindow:
 
     def home1(self):
         newwin13 = Toplevel(window)
-        newwin13.geometry("2600x2000+20+20")
+        newwin13.geometry("1920x1080")
         self.bg1 = ImageTk.PhotoImage(file="Home.png")
         canvas = Canvas(newwin13, width=2500, height=2000)
         canvas.pack(expand=True, fill=BOTH)
@@ -1118,6 +1114,7 @@ class MyWindow:
 
 
 window = tk.Tk()
+window.title("Main Screen")
 mywin = MyWindow(window)
-window.geometry("2600x2000+20+20")
+window.geometry("1920x1080")
 window.mainloop()
