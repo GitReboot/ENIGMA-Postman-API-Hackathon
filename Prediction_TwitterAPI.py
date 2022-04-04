@@ -155,7 +155,7 @@ def getTweets(user):
                 if tw.find(" ") == -1:
                     tw = "blank"
                 csvWriter.writerow([tw])
-    except tweepy.TweepError:
+    except tweepy.TweepyException:
         print("Failed to run the command on that user, Skipping...")
     csvFile.close()
 
@@ -413,11 +413,6 @@ def recomend(text):
     crct1 = '\n'.join(jobs)
     data1 = crct1.split("\n")
     return (split(data1))
-
-
-def pp(handle):
-    personality = twit(handle)
-    return personality, recomend(personality), charcter(personality)
 
 
 from tkinter import *
@@ -894,7 +889,7 @@ class MyWindow:
         handle = self.t0.get()
         res = twit(handle)
         self.t1.insert(END, str(res))
-        r = self.t1.get()
+        r = self.t1.get
         result = recomend(res)
         for i in range(len(result)):
             self.t2.insert(END, str(result[i]))
@@ -930,18 +925,18 @@ class MyWindow:
         self.lbl1 = Label(newwin12, text='Enter handle name of twitter: ', bg='navy', fg='white',
                           font=("Helvetica", 25))
         self.lbl1.place(x=30, y=300)
-        self.t1 = Entry(newwin12, bd=3, font=100)
+        self.t1 = Entry(newwin12, font=100)
         self.t1.place(x=480, y=300, height=40)
-        self.t2 = Entry(newwin12, bd=3, font=100)
+        self.t2 = Entry(newwin12, font=100)
         self.t2.place(x=480, y=430, height=40)
-        self.b1 = Button(newwin12, text='Predict_personality', bg='green', fg='white', font=70, command=self.predict)
+        self.b1 = Button(newwin12, text='Predict Personality', bg='green', fg='white', font=70, command=self.predict)
         self.b1.place(x=400, y=380)
 
     def predict(self):
         handle = self.t1.get()
         res = twit(handle)
         self.t2.insert(END, str(res))
-        r = self.t2.get()
+        r = self.t2.get
         result = charcter(res)
         for i in range(len(result)):
             self.t.insert(END, str(result[i]))
