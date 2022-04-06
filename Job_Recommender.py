@@ -169,7 +169,7 @@ def preproc(s):
 
 # Using API call to get the tweets of the desired handle
 def getTweets(user):
-    csvFile = open('Resource_Images/user.csv', 'w', newline='')
+    csvFile = open(resource_path('Resource_Images/user.csv'), 'w', newline='')
     csvWriter = csv.writer(csvFile)
     try:
         for i in range(0, 4):
@@ -213,10 +213,10 @@ def twits(handle):
 # I/E, S/N, T/Fand P/J is chosen to get the personality. These letters are chosen on the basis of higher frequency.
 def twit(handle):
     getTweets(handle)
-    with open('Resource_Images/user.csv', 'rt') as f:
+    with open(resource_path('Resource_Images/user.csv'), 'rt') as f:
         csvReader = csv.reader(f)
         tweetList = [rows[0] for rows in csvReader]
-    with open('Resource_Images/newfrequency300.csv', 'rt') as f:
+    with open(resource_path('Resource_Images/newfrequency300.csv'), 'rt') as f:
         csvReader = csv.reader(f)
         mydict = {rows[1]: int(rows[0]) for rows in csvReader}
 
@@ -224,10 +224,10 @@ def twit(handle):
     x = vectorizer.fit_transform(tweetList).toarray()
     df = pd.DataFrame(x)
 
-    model_IE = pickle.load(open("Resource_Images/BNIEFinal.sav", 'rb'))
-    model_SN = pickle.load(open("Resource_Images/BNSNFinal.sav", 'rb'))
-    model_TF = pickle.load(open('Resource_Images/BNTFFinal.sav', 'rb'))
-    model_PJ = pickle.load(open('Resource_Images/BNPJFinal.sav', 'rb'))
+    model_IE = pickle.load(open(resource_path("Resource_Images/BNIEFinal.sav"), 'rb'))
+    model_SN = pickle.load(open(resource_path("Resource_Images/BNSNFinal.sav"), 'rb'))
+    model_TF = pickle.load(open(resource_path('Resource_Images/BNTFFinal.sav'), 'rb'))
+    model_PJ = pickle.load(open(resource_path('Resource_Images/BNPJFinal.sav'), 'rb'))
 
     answer = []
     IE = model_IE.predict(df)
@@ -453,6 +453,16 @@ def pp(handle):
     return personality, recomend(personality), charcter(personality)
 
 
+def resource_path(relative_path):
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+
 # Creating the Tkinter frontend for proper interaction
 from tkinter import *
 from PIL import ImageTk
@@ -484,7 +494,7 @@ class MyWindow:
         self.btn1 = ttk.Button(newwin, text='EXPLORATORY DATA', style='Accent.TButton',
                                command=lambda: [self.explore(), newwin.destroy()])
         self.btn1.place(x=710, y=120)
-        self.bg1 = ImageTk.PhotoImage(file="Resource_Images/data_info.png")
+        self.bg1 = ImageTk.PhotoImage(file=resource_path("Resource_Images/data_info.png"))
         canvas = Canvas(newwin, width=2500, height=2000)
         canvas.pack(expand=True, fill=BOTH)
         canvas.pack(padx=0, pady=170)
@@ -496,7 +506,8 @@ class MyWindow:
     def mbt(self):
         newwin1 = Toplevel(window)
         newwin1.geometry("1280x720")
-        self.D_lbl0 = ttk.Label(newwin1, text='Personality Based Job Recommender Using Twitter Data', font=("Arial", 15))
+        self.D_lbl0 = ttk.Label(newwin1, text='Personality Based Job Recommender Using Twitter Data',
+                                font=("Arial", 15))
         self.D_lbl0.place(x=400, y=30)
         self.btn1 = ttk.Button(newwin1, text='MBTI DATA', style='Accent.TButton',
                                command=lambda: [self.mbti(), newwin1.destroy()])
@@ -513,7 +524,7 @@ class MyWindow:
         canvas = Canvas(newwin1, width=2500, height=2000)
         canvas.pack(expand=True, fill=BOTH)
         canvas.pack(padx=0, pady=170)
-        self.bg1 = ImageTk.PhotoImage(file="Resource_Images/TestResults.png")
+        self.bg1 = ImageTk.PhotoImage(file=resource_path("Resource_Images/TestResults.png"))
         canvas.create_image(1050, 70, image=self.bg1, anchor="ne")
 
     def explore(self):
@@ -522,10 +533,11 @@ class MyWindow:
         canvas = Canvas(newwin2, width=2500, height=2000)
         canvas.pack(expand=True, fill=BOTH)
         canvas.pack(padx=0, pady=100)
-        self.bg1 = ImageTk.PhotoImage(file="Resource_Images/CountPlot.png")
+        self.bg1 = ImageTk.PhotoImage(file=resource_path("Resource_Images/CountPlot.png"))
         canvas.create_image(50, 70, image=self.bg1, anchor="nw")
 
-        self.D_lbl0 = ttk.Label(newwin2, text='Personality Based Job Recommender Using Twitter Data', font=("Arial", 15))
+        self.D_lbl0 = ttk.Label(newwin2, text='Personality Based Job Recommender Using Twitter Data',
+                                font=("Arial", 15))
         self.D_lbl0.place(x=400, y=30)
         self.btn1 = ttk.Button(newwin2, text='MBTI DATA', style='Accent.TButton',
                                command=lambda: [self.mbti(), newwin2.destroy()])
@@ -564,7 +576,7 @@ class MyWindow:
         canvas = Canvas(newwin3, width=2500, height=2000)
         canvas.pack(expand=True, fill=BOTH)
         canvas.pack(padx=0, pady=100)
-        self.bg1 = ImageTk.PhotoImage(file="Resource_Images/PiePlot.png")
+        self.bg1 = ImageTk.PhotoImage(file=resource_path("Resource_Images/PiePlot.png"))
         canvas.create_image(50, 70, image=self.bg1, anchor="nw")
 
         self.D_lbl0 = ttk.Label(newwin3, text='Personality Based Job Recommender Using Twitter Data',
@@ -606,7 +618,7 @@ class MyWindow:
         newwin4.geometry("1280x720")
         canvas = Canvas(newwin4, width=2500, height=2000)
         canvas.pack(padx=0, pady=100)
-        self.bg1 = ImageTk.PhotoImage(file="Resource_Images/Displot.png")
+        self.bg1 = ImageTk.PhotoImage(file=resource_path("Resource_Images/Displot.png"))
         canvas.create_image(50, 70, image=self.bg1, anchor="nw")
 
         self.D_lbl0 = ttk.Label(newwin4, text='Personality Based Job Recommender Using Twitter Data',
@@ -649,7 +661,7 @@ class MyWindow:
         canvas = Canvas(newwin5, width=2500, height=2000)
         canvas.pack(expand=True, fill=BOTH)
         canvas.pack(padx=0, pady=100)
-        self.bg1 = ImageTk.PhotoImage(file="Resource_Images/I_E.png")
+        self.bg1 = ImageTk.PhotoImage(file=resource_path("Resource_Images/I_E.png"))
         canvas.create_image(50, 70, image=self.bg1, anchor="nw")
 
         self.D_lbl0 = ttk.Label(newwin5, text='Personality Based Job Recommender Using Twitter Data',
@@ -692,7 +704,7 @@ class MyWindow:
         canvas = Canvas(newwin6, width=2500, height=2000)
         canvas.pack(expand=True, fill=BOTH)
         canvas.pack(padx=0, pady=100)
-        self.bg1 = ImageTk.PhotoImage(file="Resource_Images/N_S.png")
+        self.bg1 = ImageTk.PhotoImage(file=resource_path("Resource_Images/N_S.png"))
         canvas.create_image(50, 70, image=self.bg1, anchor="nw")
 
         self.D_lbl0 = ttk.Label(newwin6, text='Personality Based Job Recommender Using Twitter Data',
@@ -735,7 +747,7 @@ class MyWindow:
         canvas = Canvas(newwin7, width=2500, height=2000)
         canvas.pack(expand=True, fill=BOTH)
         canvas.pack(padx=0, pady=100)
-        self.bg1 = ImageTk.PhotoImage(file="Resource_Images/T_F.png")
+        self.bg1 = ImageTk.PhotoImage(file=resource_path("Resource_Images/T_F.png"))
         canvas.create_image(50, 70, image=self.bg1, anchor="nw")
 
         self.D_lbl0 = ttk.Label(newwin7, text='Personality Based Job Recommender Using Twitter Data',
@@ -778,7 +790,7 @@ class MyWindow:
         canvas = Canvas(newwin8, width=2500, height=2000)
         canvas.pack(expand=True, fill=BOTH)
         canvas.pack(padx=0, pady=100)
-        self.bg1 = ImageTk.PhotoImage(file="Resource_Images/J_P.png")
+        self.bg1 = ImageTk.PhotoImage(file=resource_path("Resource_Images/J_P.png"))
         canvas.create_image(50, 70, image=self.bg1, anchor="nw")
 
         self.D_lbl0 = ttk.Label(newwin8, text='Personality Based Job Recommender Using Twitter Data',
@@ -932,8 +944,8 @@ class MyWindow:
         self.s.place(x=200, y=570)
         self.f = ttk.Label(newwin11, text='F - Feeling')
         self.f.place(x=100, y=590)
-        self.t = ttk.Label(newwin11, text='T - Thinking')
-        self.t.place(x=200, y=590)
+        self.tt = ttk.Label(newwin11, text='T - Thinking')
+        self.tt.place(x=200, y=590)
         self.j = ttk.Label(newwin11, text='J - Judging')
         self.j.place(x=100, y=610)
         self.p = ttk.Label(newwin11, text='P - Perceiving')
@@ -1000,8 +1012,8 @@ class MyWindow:
         self.s.place(x=200, y=570)
         self.f = ttk.Label(newwin12, text='F - Feeling')
         self.f.place(x=100, y=590)
-        self.t = ttk.Label(newwin12, text='T - Thinking')
-        self.t.place(x=200, y=590)
+        self.tt = ttk.Label(newwin12, text='T - Thinking')
+        self.tt.place(x=200, y=590)
         self.j = ttk.Label(newwin12, text='J - Judging')
         self.j.place(x=100, y=610)
         self.p = ttk.Label(newwin12, text='P - Perceiving')
@@ -1028,7 +1040,7 @@ class MyWindow:
     def home1(self):
         newwin13 = Toplevel(window)
         newwin13.geometry("600x600")
-        self.bg1 = ImageTk.PhotoImage(file="Resource_Images/Home.png")
+        self.bg1 = ImageTk.PhotoImage(file=resource_path("Resource_Images/Home.png"))
         canvas = Canvas(newwin13, width=50, height=60)
         canvas.pack(expand=True, fill=BOTH)
         canvas.pack(padx=0, pady=170)
@@ -1047,8 +1059,7 @@ class MyWindow:
 from tkinter import ttk
 
 window = tk.Tk()
-
-window.tk.call('source', 'Resource_Images/forest-dark.tcl')
+window.tk.call('source', resource_path(resource_path('Resource_Images/forest-dark.tcl')))
 
 # Set the theme with the theme_use method
 ttk.Style().theme_use('forest-dark')
@@ -1056,5 +1067,5 @@ ttk.Style().theme_use('forest-dark')
 window.title("ENIGMA")
 mywin = MyWindow(window)
 window.geometry("400x300")
-window.iconphoto(True, tk.PhotoImage(file='Resource_Images/icon.png'))
+window.iconphoto(True, tk.PhotoImage(file=resource_path('Resource_Images/icon.png')))
 window.mainloop()
