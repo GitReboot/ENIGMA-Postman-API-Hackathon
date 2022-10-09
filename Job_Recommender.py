@@ -479,6 +479,24 @@ class MyWindow:
         self.btn1 = ttk.Button(win, text='Quit', style='Accent.TButton', command=win.destroy)
         self.btn1.place(x=142, y=165)
 
+    def home1(self):
+        newwin13 = Toplevel(window)
+        newwin13.geometry("600x600")
+        self.bg1 = ImageTk.PhotoImage(file=resource_path("Resource_Images/Home.png"))
+        canvas = Canvas(newwin13, width=50, height=60)
+        canvas.pack(expand=True, fill=BOTH)
+        canvas.pack(padx=0, pady=170)
+        canvas.create_image(500, 70, image=self.bg1, anchor="ne")
+        self.D_lbl0 = ttk.Label(newwin13, text='Personality Based Job Recommender Using Twitter Data ',
+                                font=("Arial", 15))
+        self.D_lbl0.place(x=50, y=30)
+        self.btn1 = ttk.Button(newwin13, text='MBTI DATA', style='Accent.TButton',
+                               command=lambda: [self.mbti(), newwin13.destroy()])
+        self.btn1.place(x=150, y=120)
+        self.btn1 = ttk.Button(newwin13, text='TWITTER DATA', style='Accent.TButton',
+                               command=lambda: [self.twitter(), newwin13.destroy()])
+        self.btn1.place(x=350, y=120)
+
     def mbti(self):
         newwin = Toplevel(window)
         newwin.geometry("1280x720")
@@ -526,6 +544,216 @@ class MyWindow:
         canvas.pack(padx=0, pady=170)
         self.bg1 = ImageTk.PhotoImage(file=resource_path("Resource_Images/TestResults.png"))
         canvas.create_image(1050, 70, image=self.bg1, anchor="ne")
+
+    def twitter(self):
+        newwin9 = Toplevel(window)
+        newwin9.geometry("1280x720")
+        self.D_lbl0 = ttk.Label(newwin9, text='Personality Based Job Recommender Using Twitter Data',
+                                font=("Arial", 15))
+        self.D_lbl0.place(x=400, y=30)
+        self.btn1 = ttk.Button(newwin9, text='HOME', style='Accent.TButton',
+                               command=lambda: [self.home1(), newwin9.destroy()])
+        self.btn1.place(x=365, y=120)
+        self.btn1 = ttk.Button(newwin9, text='TWITTER POSTS', style='Accent.TButton',
+                               command=lambda: [self.posts(), newwin9.destroy()])
+        self.btn1.place(x=465, y=120)
+        self.btn1 = ttk.Button(newwin9, text='PREDICT PERSONALITY', style='Accent.TButton',
+                               command=lambda: [self.home(), newwin9.destroy()])
+        self.btn1.place(x=597, y=120)
+        self.btn1 = ttk.Button(newwin9, text='RECOMMENDATIONS', style='Accent.TButton',
+                               command=lambda: [self.recomends(), newwin9.destroy()])
+        self.btn1.place(x=775, y=120)
+
+    def posts(self):
+        newwin10 = Toplevel(window)
+        newwin10.geometry("1280x720")
+        self.D_btn1 = ttk.Button(newwin10, text='TWITTER POSTS', style='Accent.TButton',
+                                 command=lambda: [newwin10.destroy(), self.posts()])
+        self.D_btn1.place(x=465, y=120)
+        self.D_b1 = ttk.Button(newwin10, text='PREDICT PERSONALITY', style='Accent.TButton',
+                               command=lambda: [self.home(), newwin10.destroy()])
+        self.D_b1.place(x=597, y=120)
+        self.D_btn1 = ttk.Button(newwin10, text='RECOMMENDATIONS', style='Accent.TButton',
+                                 command=lambda: [self.recomends(), newwin10.destroy()])
+        self.D_btn1.place(x=775, y=120)
+        self.btn1 = ttk.Button(newwin10, text='HOME', style='Accent.TButton',
+                               command=lambda: [self.home1(), newwin10.destroy()])
+        self.btn1.place(x=365, y=120)
+        self.D_lbl0 = ttk.Label(newwin10, text='Personality Based Job Recommender Using Twitter Data',
+                                font=("Arial", 15))
+        self.D_lbl0.place(x=400, y=30)
+        self.t1 = Text(newwin10)
+        self.t3 = Text(newwin10)
+        self.t2 = ttk.Entry(newwin10)
+        self.lbl1 = ttk.Label(newwin10, text='Enter Twitter ID: ')
+        self.lbl1.place(x=500, y=180)
+        self.lbl4 = ttk.Label(newwin10, text='Tweets data of user:')
+        self.lbl4.place(x=50, y=290)
+        self.lbl4 = ttk.Label(newwin10, text='Cleaned data:')
+        self.lbl4.place(x=680, y=290)
+        self.t1.place(x=50, y=320)
+        self.t3.place(x=680, y=320)
+        self.t2.place(x=600, y=170, height=45)
+        self.b1 = ttk.Button(newwin10, text='Get Tweets', style='Accent.TButton', command=self.twt)
+        self.b1.place(x=250, y=240, width=130, height=50)
+        self.b1 = ttk.Button(newwin10, text='Pre Process Tweets', style='Accent.TButton', command=self.twt1)
+        self.b1.place(x=850, y=240, width=170, height=50)
+
+    def twt(self):
+        handle = self.t2.get()
+        res = twits(handle)
+        self.t1.configure(state='normal')
+        self.t1.delete('1.0', END)
+
+        self.t1.insert(END, str(res))
+        self.t1.configure(state='disabled')
+
+    def twt1(self):
+        handle = self.t2.get()
+        res1 = twits(handle)
+        tx1 = join(res1)
+        tx2 = pre_process(tx1)
+        self.t3.configure(state='normal')
+        self.t3.delete('1.0', END)
+
+        self.t3.insert(END, str(tx2))
+        self.t3.configure(state='disabled')
+
+    def recomends(self):
+        newwin11 = Toplevel(window)
+        newwin11.geometry("1280x720")
+        self.D_btn1 = ttk.Button(newwin11, text='TWITTER POSTS', style='Accent.TButton',
+                                 command=lambda: [self.posts(), newwin11.destroy()])
+        self.D_btn1.place(x=465, y=120)
+        self.D_b1 = ttk.Button(newwin11, text='PREDICT PERSONALITY', style='Accent.TButton',
+                               command=lambda: [self.home(), newwin11.destroy()])
+        self.D_b1.place(x=597, y=120)
+        self.D_btn1 = ttk.Button(newwin11, text='RECOMMENDATIONS', style='Accent.TButton',
+                                 command=lambda: [newwin11.destroy(), self.recomends()])
+        self.D_btn1.place(x=775, y=120)
+        self.btn1 = ttk.Button(newwin11, text='HOME', style='Accent.TButton',
+                               command=lambda: [self.home1(), newwin11.destroy()])
+        self.btn1.place(x=365, y=120)
+        self.D_lbl0 = ttk.Label(newwin11, text='Personality Based Job Recommender Using Twitter Data',
+                                font=("Arial", 15))
+        self.D_lbl0.place(x=400, y=30)
+        self.lbl1 = ttk.Label(newwin11, text='Enter handle name:')
+        self.lbl2 = ttk.Label(newwin11, text='Job Recommendations:')
+        self.lbl5 = ttk.Label(newwin11, text='Personality Type:')
+        self.b1 = ttk.Button(newwin11, text='Recommendations', style='Accent.TButton', command=self.recmd)
+        self.b1.place(x=600, y=280)
+        self.t0 = ttk.Entry(newwin11)
+        self.t2 = Text(newwin11, height=15, width=85)
+        self.t1 = Text(newwin11, height=2, width=10)
+        self.t0.place(x=650, y=220, height=40)
+        self.lbl2.place(x=400, y=410)
+        self.lbl1.place(x=485, y=227)
+        self.lbl5.place(x=500, y=332)
+        self.t1.place(x=650, y=330)
+        self.t2.place(x=400, y=460)
+
+        self.i = ttk.Label(newwin11, text='I - Introvert')
+        self.i.place(x=100, y=550)
+        self.e = ttk.Label(newwin11, text='E - Extrovert')
+        self.e.place(x=200, y=550)
+        self.n = ttk.Label(newwin11, text='N - Intuitive')
+        self.n.place(x=100, y=570)
+        self.s = ttk.Label(newwin11, text='S - Sensing')
+        self.s.place(x=200, y=570)
+        self.f = ttk.Label(newwin11, text='F - Feeling')
+        self.f.place(x=100, y=590)
+        self.tt = ttk.Label(newwin11, text='T - Thinking')
+        self.tt.place(x=200, y=590)
+        self.j = ttk.Label(newwin11, text='J - Judging')
+        self.j.place(x=100, y=610)
+        self.p = ttk.Label(newwin11, text='P - Perceiving')
+        self.p.place(x=200, y=610)
+
+    def recmd(self):
+        handle = self.t0.get()
+        res = twit(handle)
+        self.t1.configure(state='normal')
+        self.t1.delete('1.0', END)
+
+        self.t1.insert(END, str(res))
+        self.t1.configure(state='disabled')
+        r = self.t1.get
+        result = recomend(res)
+        self.t2.configure(state='normal')
+        self.t2.delete('1.0', END)
+
+        for i in range(len(result)):
+            self.t2.insert(END, str(result[i]))
+            self.t2.insert(END, str('\n'))
+        self.t2.configure(state='disabled')
+
+    def home(self):
+        newwin12 = Toplevel(window)
+        newwin12.geometry("1280x720")
+        self.D_btn1 = ttk.Button(newwin12, text='TWITTER POSTS', style='Accent.TButton',
+                                 command=lambda: [self.posts(), newwin12.destroy()])
+        self.D_btn1.place(x=465, y=120)
+        self.D_b1 = ttk.Button(newwin12, text='PREDICT PERSONALITY', style='Accent.TButton',
+                               command=lambda: [newwin12.destroy(), self.home()])
+        self.D_b1.place(x=597, y=120)
+        self.D_btn1 = ttk.Button(newwin12, text='RECOMMENDATIONS', style='Accent.TButton',
+                                 command=lambda: [self.recomends(), newwin12.destroy()])
+        self.D_btn1.place(x=775, y=120)
+        self.btn1 = ttk.Button(newwin12, text='HOME', style='Accent.TButton',
+                               command=lambda: [self.home1(), newwin12.destroy()])
+        self.btn1.place(x=365, y=120)
+        self.D_lbl0 = ttk.Label(newwin12, text='Personality Based Job Recommender Using Twitter Data',
+                                font=("Arial", 15))
+        self.D_lbl0.place(x=400, y=30)
+        self.lbl2 = ttk.Label(newwin12, text='Characteristics of Personalities:')
+        self.lbl2.place(x=650, y=250)
+        self.t = Text(newwin12, height=15, width=85)
+        self.t.place(x=650, y=310)
+        self.lbl2 = ttk.Label(newwin12, text='Predicted Personality Type')
+        self.lbl2.place(x=200, y=437)
+        self.lbl1 = ttk.Label(newwin12, text='Enter handle name of twitter:')
+        self.lbl1.place(x=150, y=307)
+        self.t1 = ttk.Entry(newwin12)
+        self.t1.place(x=350, y=300, height=40)
+        self.t2 = Text(newwin12, width=10)
+        self.t2.place(x=380, y=430, height=40)
+        self.b1 = ttk.Button(newwin12, text='Predict Personality', style='Accent.TButton', command=self.predict)
+        self.b1.place(x=300, y=375)
+
+        self.i = ttk.Label(newwin12, text='I - Introvert')
+        self.i.place(x=100, y=550)
+        self.e = ttk.Label(newwin12, text='E - Extrovert')
+        self.e.place(x=200, y=550)
+        self.n = ttk.Label(newwin12, text='N - Intuitive')
+        self.n.place(x=100, y=570)
+        self.s = ttk.Label(newwin12, text='S - Sensing')
+        self.s.place(x=200, y=570)
+        self.f = ttk.Label(newwin12, text='F - Feeling')
+        self.f.place(x=100, y=590)
+        self.tt = ttk.Label(newwin12, text='T - Thinking')
+        self.tt.place(x=200, y=590)
+        self.j = ttk.Label(newwin12, text='J - Judging')
+        self.j.place(x=100, y=610)
+        self.p = ttk.Label(newwin12, text='P - Perceiving')
+        self.p.place(x=200, y=610)
+
+    def predict(self):
+        handle = self.t1.get()
+        res = twit(handle)
+        self.t2.configure(state='normal')
+        self.t2.delete('1.0', END)
+
+        self.t2.insert(END, str(res))
+        self.t2.configure(state='disabled')
+        r = self.t2.get
+        result = charcter(res)
+        self.t.configure(state='normal')
+        self.t.delete('1.0', END)
+
+        for i in range(len(result)):
+            self.t.insert(END, str(result[i]))
+            self.t.insert(END, str('\n'))
+        self.t.configure(state='disabled')
 
     def explore(self):
         newwin2 = Toplevel(window)
@@ -826,234 +1054,6 @@ class MyWindow:
         self.btn1 = ttk.Button(newwin8, text='P-J PLOT', style='Accent.TButton',
                                command=lambda: [self.explore6(), newwin8.destroy()])
         self.btn1.place(x=1000, y=450)
-
-    def twitter(self):
-        newwin9 = Toplevel(window)
-        newwin9.geometry("1280x720")
-        self.D_lbl0 = ttk.Label(newwin9, text='Personality Based Job Recommender Using Twitter Data',
-                                font=("Arial", 15))
-        self.D_lbl0.place(x=400, y=30)
-        self.btn1 = ttk.Button(newwin9, text='HOME', style='Accent.TButton',
-                               command=lambda: [self.home1(), newwin9.destroy()])
-        self.btn1.place(x=365, y=120)
-        self.btn1 = ttk.Button(newwin9, text='TWITTER POSTS', style='Accent.TButton',
-                               command=lambda: [self.posts(), newwin9.destroy()])
-        self.btn1.place(x=465, y=120)
-        self.btn1 = ttk.Button(newwin9, text='PREDICT PERSONALITY', style='Accent.TButton',
-                               command=lambda: [self.home(), newwin9.destroy()])
-        self.btn1.place(x=597, y=120)
-        self.btn1 = ttk.Button(newwin9, text='RECOMMENDATIONS', style='Accent.TButton',
-                               command=lambda: [self.recomends(), newwin9.destroy()])
-        self.btn1.place(x=775, y=120)
-
-    def posts(self):
-        newwin10 = Toplevel(window)
-        newwin10.geometry("1280x720")
-        self.D_btn1 = ttk.Button(newwin10, text='TWITTER POSTS', style='Accent.TButton',
-                                 command=lambda: [newwin10.destroy(), self.posts()])
-        self.D_btn1.place(x=465, y=120)
-        self.D_b1 = ttk.Button(newwin10, text='PREDICT PERSONALITY', style='Accent.TButton',
-                               command=lambda: [self.home(), newwin10.destroy()])
-        self.D_b1.place(x=597, y=120)
-        self.D_btn1 = ttk.Button(newwin10, text='RECOMMENDATIONS', style='Accent.TButton',
-                                 command=lambda: [self.recomends(), newwin10.destroy()])
-        self.D_btn1.place(x=775, y=120)
-        self.btn1 = ttk.Button(newwin10, text='HOME', style='Accent.TButton',
-                               command=lambda: [self.home1(), newwin10.destroy()])
-        self.btn1.place(x=365, y=120)
-        self.D_lbl0 = ttk.Label(newwin10, text='Personality Based Job Recommender Using Twitter Data',
-                                font=("Arial", 15))
-        self.D_lbl0.place(x=400, y=30)
-        self.t1 = Text(newwin10)
-        self.t3 = Text(newwin10)
-        self.t2 = ttk.Entry(newwin10)
-        self.lbl1 = ttk.Label(newwin10, text='Enter Twitter ID: ')
-        self.lbl1.place(x=500, y=180)
-        self.lbl4 = ttk.Label(newwin10, text='Tweets data of user:')
-        self.lbl4.place(x=50, y=290)
-        self.lbl4 = ttk.Label(newwin10, text='Cleaned data:')
-        self.lbl4.place(x=680, y=290)
-        self.t1.place(x=50, y=320)
-        self.t3.place(x=680, y=320)
-        self.t2.place(x=600, y=170, height=45)
-        self.b1 = ttk.Button(newwin10, text='Get Tweets', style='Accent.TButton', command=self.twt)
-        self.b1.place(x=250, y=240, width=130, height=50)
-        self.b1 = ttk.Button(newwin10, text='Pre Process Tweets', style='Accent.TButton', command=self.twt1)
-        self.b1.place(x=850, y=240, width=170, height=50)
-
-    def twt(self):
-        handle = self.t2.get()
-        res = twits(handle)
-        self.t1.configure(state='normal')
-        self.t1.delete('1.0', END)
-
-        self.t1.insert(END, str(res))
-        self.t1.configure(state='disabled')
-
-    def twt1(self):
-        handle = self.t2.get()
-        res1 = twits(handle)
-        tx1 = join(res1)
-        tx2 = pre_process(tx1)
-        self.t3.configure(state='normal')
-        self.t3.delete('1.0', END)
-
-        self.t3.insert(END, str(tx2))
-        self.t3.configure(state='disabled')
-
-    def recomends(self):
-        newwin11 = Toplevel(window)
-        newwin11.geometry("1280x720")
-        self.D_btn1 = ttk.Button(newwin11, text='TWITTER POSTS', style='Accent.TButton',
-                                 command=lambda: [self.posts(), newwin11.destroy()])
-        self.D_btn1.place(x=465, y=120)
-        self.D_b1 = ttk.Button(newwin11, text='PREDICT PERSONALITY', style='Accent.TButton',
-                               command=lambda: [self.home(), newwin11.destroy()])
-        self.D_b1.place(x=597, y=120)
-        self.D_btn1 = ttk.Button(newwin11, text='RECOMMENDATIONS', style='Accent.TButton',
-                                 command=lambda: [newwin11.destroy(), self.recomends()])
-        self.D_btn1.place(x=775, y=120)
-        self.btn1 = ttk.Button(newwin11, text='HOME', style='Accent.TButton',
-                               command=lambda: [self.home1(), newwin11.destroy()])
-        self.btn1.place(x=365, y=120)
-        self.D_lbl0 = ttk.Label(newwin11, text='Personality Based Job Recommender Using Twitter Data',
-                                font=("Arial", 15))
-        self.D_lbl0.place(x=400, y=30)
-        self.lbl1 = ttk.Label(newwin11, text='Enter handle name:')
-        self.lbl2 = ttk.Label(newwin11, text='Job Recommendations:')
-        self.lbl5 = ttk.Label(newwin11, text='Personality Type:')
-        self.b1 = ttk.Button(newwin11, text='Recommendations', style='Accent.TButton', command=self.recmd)
-        self.b1.place(x=600, y=280)
-        self.t0 = ttk.Entry(newwin11)
-        self.t2 = Text(newwin11, height=15, width=85)
-        self.t1 = Text(newwin11, height=2, width=10)
-        self.t0.place(x=650, y=220, height=40)
-        self.lbl2.place(x=400, y=410)
-        self.lbl1.place(x=485, y=227)
-        self.lbl5.place(x=500, y=332)
-        self.t1.place(x=650, y=330)
-        self.t2.place(x=400, y=460)
-
-        self.i = ttk.Label(newwin11, text='I - Introvert')
-        self.i.place(x=100, y=550)
-        self.e = ttk.Label(newwin11, text='E - Extrovert')
-        self.e.place(x=200, y=550)
-        self.n = ttk.Label(newwin11, text='N - Intuitive')
-        self.n.place(x=100, y=570)
-        self.s = ttk.Label(newwin11, text='S - Sensing')
-        self.s.place(x=200, y=570)
-        self.f = ttk.Label(newwin11, text='F - Feeling')
-        self.f.place(x=100, y=590)
-        self.tt = ttk.Label(newwin11, text='T - Thinking')
-        self.tt.place(x=200, y=590)
-        self.j = ttk.Label(newwin11, text='J - Judging')
-        self.j.place(x=100, y=610)
-        self.p = ttk.Label(newwin11, text='P - Perceiving')
-        self.p.place(x=200, y=610)
-
-    def recmd(self):
-        handle = self.t0.get()
-        res = twit(handle)
-        self.t1.configure(state='normal')
-        self.t1.delete('1.0', END)
-
-        self.t1.insert(END, str(res))
-        self.t1.configure(state='disabled')
-        r = self.t1.get
-        result = recomend(res)
-        self.t2.configure(state='normal')
-        self.t2.delete('1.0', END)
-
-        for i in range(len(result)):
-            self.t2.insert(END, str(result[i]))
-            self.t2.insert(END, str('\n'))
-        self.t2.configure(state='disabled')
-
-    def home(self):
-        newwin12 = Toplevel(window)
-        newwin12.geometry("1280x720")
-        self.D_btn1 = ttk.Button(newwin12, text='TWITTER POSTS', style='Accent.TButton',
-                                 command=lambda: [self.posts(), newwin12.destroy()])
-        self.D_btn1.place(x=465, y=120)
-        self.D_b1 = ttk.Button(newwin12, text='PREDICT PERSONALITY', style='Accent.TButton',
-                               command=lambda: [newwin12.destroy(), self.home()])
-        self.D_b1.place(x=597, y=120)
-        self.D_btn1 = ttk.Button(newwin12, text='RECOMMENDATIONS', style='Accent.TButton',
-                                 command=lambda: [self.recomends(), newwin12.destroy()])
-        self.D_btn1.place(x=775, y=120)
-        self.btn1 = ttk.Button(newwin12, text='HOME', style='Accent.TButton',
-                               command=lambda: [self.home1(), newwin12.destroy()])
-        self.btn1.place(x=365, y=120)
-        self.D_lbl0 = ttk.Label(newwin12, text='Personality Based Job Recommender Using Twitter Data',
-                                font=("Arial", 15))
-        self.D_lbl0.place(x=400, y=30)
-        self.lbl2 = ttk.Label(newwin12, text='Characteristics of Personalities:')
-        self.lbl2.place(x=650, y=250)
-        self.t = Text(newwin12, height=15, width=85)
-        self.t.place(x=650, y=310)
-        self.lbl2 = ttk.Label(newwin12, text='Predicted Personality Type')
-        self.lbl2.place(x=200, y=437)
-        self.lbl1 = ttk.Label(newwin12, text='Enter handle name of twitter:')
-        self.lbl1.place(x=150, y=307)
-        self.t1 = ttk.Entry(newwin12)
-        self.t1.place(x=350, y=300, height=40)
-        self.t2 = Text(newwin12, width=10)
-        self.t2.place(x=380, y=430, height=40)
-        self.b1 = ttk.Button(newwin12, text='Predict Personality', style='Accent.TButton', command=self.predict)
-        self.b1.place(x=300, y=375)
-
-        self.i = ttk.Label(newwin12, text='I - Introvert')
-        self.i.place(x=100, y=550)
-        self.e = ttk.Label(newwin12, text='E - Extrovert')
-        self.e.place(x=200, y=550)
-        self.n = ttk.Label(newwin12, text='N - Intuitive')
-        self.n.place(x=100, y=570)
-        self.s = ttk.Label(newwin12, text='S - Sensing')
-        self.s.place(x=200, y=570)
-        self.f = ttk.Label(newwin12, text='F - Feeling')
-        self.f.place(x=100, y=590)
-        self.tt = ttk.Label(newwin12, text='T - Thinking')
-        self.tt.place(x=200, y=590)
-        self.j = ttk.Label(newwin12, text='J - Judging')
-        self.j.place(x=100, y=610)
-        self.p = ttk.Label(newwin12, text='P - Perceiving')
-        self.p.place(x=200, y=610)
-
-    def predict(self):
-        handle = self.t1.get()
-        res = twit(handle)
-        self.t2.configure(state='normal')
-        self.t2.delete('1.0', END)
-
-        self.t2.insert(END, str(res))
-        self.t2.configure(state='disabled')
-        r = self.t2.get
-        result = charcter(res)
-        self.t.configure(state='normal')
-        self.t.delete('1.0', END)
-
-        for i in range(len(result)):
-            self.t.insert(END, str(result[i]))
-            self.t.insert(END, str('\n'))
-        self.t.configure(state='disabled')
-
-    def home1(self):
-        newwin13 = Toplevel(window)
-        newwin13.geometry("600x600")
-        self.bg1 = ImageTk.PhotoImage(file=resource_path("Resource_Images/Home.png"))
-        canvas = Canvas(newwin13, width=50, height=60)
-        canvas.pack(expand=True, fill=BOTH)
-        canvas.pack(padx=0, pady=170)
-        canvas.create_image(500, 70, image=self.bg1, anchor="ne")
-        self.D_lbl0 = ttk.Label(newwin13, text='Personality Based Job Recommender Using Twitter Data ',
-                                font=("Arial", 15))
-        self.D_lbl0.place(x=50, y=30)
-        self.btn1 = ttk.Button(newwin13, text='MBTI DATA', style='Accent.TButton',
-                               command=lambda: [self.mbti(), newwin13.destroy()])
-        self.btn1.place(x=150, y=120)
-        self.btn1 = ttk.Button(newwin13, text='TWITTER DATA', style='Accent.TButton',
-                               command=lambda: [self.twitter(), newwin13.destroy()])
-        self.btn1.place(x=350, y=120)
 
 
 from tkinter import ttk
